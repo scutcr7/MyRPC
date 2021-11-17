@@ -60,4 +60,13 @@ public class RpcResponse<T> implements Serializable {
     public T getData() {
         return data;
     }
+
+    @Override
+    public String toString() {
+        return "RpcResponse{" +
+                "statusCode=" + statusCode +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

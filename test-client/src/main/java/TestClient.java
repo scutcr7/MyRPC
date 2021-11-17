@@ -15,7 +15,7 @@ public class TestClient {
         // 传入想要调用的服务Class对象, 返回服务端给你的接口（实现类）
         HelloService helloService = proxy.getProxy(HelloService.class);
         // 生成请求参数
-        HelloObject helloObject = new HelloObject();
+        HelloObject helloObject = new HelloObject(777, "你好");
         // 直接在本地调用远程接口服务
         String res = helloService.hello(helloObject);
         System.out.println(res);
