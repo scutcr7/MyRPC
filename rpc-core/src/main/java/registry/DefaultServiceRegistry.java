@@ -10,8 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DefaultServiceRegistry implements ServiceRegistry{
 
-    private final Map<String, Object> serviceMap = new ConcurrentHashMap<>();
-    private final Set<String> registeredService = ConcurrentHashMap.newKeySet();
+    // 注意要static因为不同的defaultServiceRegistry要共用服务
+    private static final Map<String, Object> serviceMap = new ConcurrentHashMap<>();
+    private static final Set<String> registeredService = ConcurrentHashMap.newKeySet();
 
     @Override
     public synchronized <T> void register(T service) {
@@ -24,7 +25,11 @@ public class DefaultServiceRegistry implements ServiceRegistry{
 
         Class<?>[] interfaces = service.getClass().getInterfaces();
         if(interfaces.length == 0){
-//            throw new RpcException(RpcError.SERVICE_NOT_IMPLEMENT_ANY_INTERFACE);
+            try {
+                throw new Exception();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
         for(Class<?> clazz : interfaces){
@@ -38,7 +43,11 @@ public class DefaultServiceRegistry implements ServiceRegistry{
     public synchronized Object getService(String serviceName) {
         Object service = serviceMap.get(serviceName);
         if(service == null){
-
+            try {
+                throw new Exception();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return service;
     }

@@ -1,4 +1,4 @@
-package client;
+package core;
 
 import entity.RpcRequest;
 import entity.RpcResponse;
@@ -9,16 +9,17 @@ import java.lang.reflect.Proxy;
 
 /**
  * @author Ed
- * @create 2021-11-16 16:29
+ * @create 2021-11-30 15:30
  */
 public class RpcClientProxy implements InvocationHandler {
 
     private String host;
     private int port;
+    private RpcClient client;
 
-    public RpcClientProxy(String host, int port){
-        this.host = host;
-        this.port = port;
+
+    public RpcClientProxy(RpcClient client){
+        this.client = client;
     }
 
     public <T> T getProxy(Class<T> clazz){
@@ -35,7 +36,6 @@ public class RpcClientProxy implements InvocationHandler {
                 .parameters(args)
                 .paramTypes(method.getParameterTypes())
                 .build();
-        RpcClient rpcClient = new RpcClient();
-        return ((RpcResponse) rpcClient.sendRequest(rpcRequest, host, port)).getData();
+        return ((RpcResponse) client.sendRequest(rpcRequest)).getData();
     }
 }

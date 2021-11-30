@@ -1,5 +1,6 @@
-package client;
+package socket.client;
 
+import core.RpcClient;
 import entity.RpcRequest;
 
 import java.io.IOException;
@@ -11,9 +12,19 @@ import java.net.Socket;
  * @author Ed
  * @create 2021-11-16 16:28
  */
-public class RpcClient {
+public class SocketClient implements RpcClient {
 
-    public Object sendRequest(RpcRequest rpcRequest, String host, int port){
+    private String host;
+    private int port;
+
+    public SocketClient(String host, int port){
+        this.host = host;
+        this.port = port;
+    }
+
+
+    @Override
+    public Object sendRequest(RpcRequest rpcRequest) {
         try(Socket socket = new Socket(host, port)){
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());

@@ -1,5 +1,6 @@
-package server;
+package socket.server;
 
+import core.RequestHandler;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import registry.ServiceRegistry;

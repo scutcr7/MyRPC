@@ -1,11 +1,14 @@
 package entity;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * @author Ed
  * @create 2021-11-16 16:25
  */
+@Data
 public class RpcResponse<T> implements Serializable {
 
     /**
@@ -41,6 +44,10 @@ public class RpcResponse<T> implements Serializable {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public RpcResponse(){
+
     }
 
     public static <T> RpcResponse<T> success(T data){
